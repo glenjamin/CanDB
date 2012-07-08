@@ -1,0 +1,3 @@
+{{#candidates}}
+<p>Name: {{name}}</p>
+{{/candidates}}

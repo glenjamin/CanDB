@@ -1,0 +1,7 @@
+<h2>Candidates</h2>
+
+{{#layout}}
+{{#new-url}}<p><a href="{{new-url}}">New Candidate</a></p>{{/new-url}}
+{{/layout}}
+
+{{> content}}

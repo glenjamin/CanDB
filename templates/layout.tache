@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <header class="page-head">
+      <h1>{{ title }}</h1>
+    </header>
+
+    <nav>
+      <ul class="page-menu">
+        {{#menu}}
+        <li class="page-menu-item {{#active}}active{{/active}}"><a
+          class="page-menu-link" href="{{href}}">{{link}}</a></li>
+        {{/menu}}
+      </ul>
+    </nav>
+
+    {{#flash.info}}
+      <div class="flash info"><p>{{flash.info}}</p></div>
+    {{/flash.info}}
+    {{#flash.error}}
+      <div class="flash error"><p>{{flash.error}}</p></div>
+    {{/flash.error}}
+
+    <div class="main">
+      {{> content}}
+    </div>
+
+    <div class="footer">
+      <p class="footer-copyright">Copyright SkyBet &copy; 2012</p>
+    </div>
+  </body>
+</html>

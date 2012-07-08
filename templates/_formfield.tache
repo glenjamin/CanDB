@@ -1,0 +1,7 @@
+<div class="{{classes}}">
+  <label class="field-label" for="{{label-for}}">{{label}}</label>
+  <div class="field-input">
+    {{{widget}}}
+    {{#error}}<p class="field-error">{{error}}</p>{{/error}}
+  </div>
+</div>

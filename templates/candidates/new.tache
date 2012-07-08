@@ -1,0 +1,11 @@
+{{#form}}
+<form action="{{action}}" method="post">
+  <fieldset class="form">
+    <legend class="form-legend">New Candidate</legend>
+    {{{fields}}}
+    <div class="form-controls">
+      <input type="submit" value="Add">
+    </div>
+  </fieldset>
+</form>
+{{/form}}
