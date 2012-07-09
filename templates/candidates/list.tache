@@ -1,3 +1,26 @@
-{{#candidates}}
-<p>Name: {{name}}</p>
-{{/candidates}}
+<table class="listing">
+  <thead
+    <tr>
+      <th>Name</th>
+      <th class="responsive">Recruiter</th>
+      <th>Stage</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#candidates}}
+    <tr>
+      <td>{{name}}</td>
+      <td class="responsive">{{recruiter}}</td>
+      <td>{{stage}}</td>
+      <td>
+        {{#actions}}
+          {{#show}}<a href="{{show}}">Show</a>{{/show}}
+          {{#edit}}<a href="{{edit}}">Edit</a>{{/edit}}
+          {{#delete}}<a href="{{delete}}">Del</a>{{/delete}}
+        {{/actions}}
+      </td>
+    </tr>
+  {{/candidates}}
+  </tbody>
+</table>

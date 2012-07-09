@@ -1,6 +1,6 @@
 var present = require('present-express');
-var Base = require('./base');
+var Candidate = require('./candidate');
 
-module.exports = present.extend(Base, function(data) {
+module.exports = present.extend(Candidate, function(data) {
   this.template = 'candidates/list-empty';
 })

@@ -2,21 +2,21 @@
 <html>
   <head>
     <title>{{ title }}</title>
+    <meta name=viewport content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
     <header class="page-head">
-      <h1>{{ title }}</h1>
+      <h1>{{ site }}</h1>
+      <nav>
+        <ul class="page-menu">
+          {{#menu}}
+          <li class="page-menu-item {{#active}}active{{/active}}"><a
+            class="page-menu-link" href="{{href}}">{{link}}</a></li>
+          {{/menu}}
+        </ul>
+      </nav>
     </header>
-
-    <nav>
-      <ul class="page-menu">
-        {{#menu}}
-        <li class="page-menu-item {{#active}}active{{/active}}"><a
-          class="page-menu-link" href="{{href}}">{{link}}</a></li>
-        {{/menu}}
-      </ul>
-    </nav>
 
     {{#flash.info}}
       <div class="flash info"><p>{{flash.info}}</p></div>
@@ -26,6 +26,7 @@
     {{/flash.error}}
 
     <div class="main">
+      <h2 class="main-title">{{ page }}</h2>
       {{> content}}
     </div>
 

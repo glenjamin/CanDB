@@ -8,15 +8,12 @@ module.exports = present.create(function(data) {
 
     this.data.flash = data.flash();
 
-    var title = ''
+    this.data.site = 'CanDB';
     Object.defineProperty(this.data, 'title', {
         get: function() {
-            return 'Candidate DB' + (title ? ' | ' + title : '');
+            return this.site + (this.page ? ' | ' + this.page : '')
         },
-        set: function(val) {
-            title = val;
-        },
-        configurable: true
+        enumerable: true
     });
 
     var menu = this.data.menu = [
@@ -34,13 +31,19 @@ module.exports = present.create(function(data) {
         }
     }
 
-    this.csrfInput = function() {
+    function hiddenInput(name, value) {
       return util.format(
-        '<input type="hidden" name="_csrf" value="%s">', data.csrf);
+        '<input type="hidden" name="%s" value="%s">', name, value);
     }
-    this.renderForm = function(form) {
-      return this.csrfInput() +
-        form.toHTML(function(name, field) {
+    this.csrfInput = function() {
+      return hiddenInput('_csrf', data.csrf);
+    }
+    this.renderForm = function(form, methodOverride) {
+      if (typeof form === 'string') methodOverride = form, form = null;
+      var bits = [];
+      bits.push(this.csrfInput());
+      methodOverride && bits.push(hiddenInput('_method', methodOverride));
+      form && bits.push(form.toHTML(function(name, field) {
         return present.render('_formfield', {
           'classes': field.classes().join(' '),
           'label': field.labelText(name),
@@ -48,6 +51,7 @@ module.exports = present.create(function(data) {
           'widget': field.widget.toHTML(name, field),
           'error': field.error
         });
-      })
+      }));
+      return bits.join('\n');
     }
 })

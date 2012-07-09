@@ -1,8 +1,15 @@
 var present = require('present-express');
-var Base = require('./base');
+var Candidate = require('./candidate');
 
-module.exports = present.extend(Base, function(data) {
+module.exports = present.extend(Candidate, function(data) {
   this.template = 'candidates/show';
 
-  this.data.candidate = data.candidate;
+  var c = data.candidate;
+  this.data.candidate = {
+    'name': c.name,
+    'recruiter': c.recruiter,
+    'email': c.email,
+    'phone': c.phone,
+    'stage': Base.friendlyStage(c)
+  };
 })

@@ -5,6 +5,8 @@ module.exports = function(app) {
     res.render('dash');
   });
 
-  app.resource('candidates', require('./candidates')(app));
+  var candidates = require('./candidates')(app);
+  var cResource = app.resource('candidates', candidates);
+  cResource.get('delete', candidates.delete);
 
 }

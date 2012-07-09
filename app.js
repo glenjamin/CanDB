@@ -10,6 +10,21 @@ require('express-resource');
 
 var app = express();
 
+var winston = require('winston');
+app.log = new (winston.Logger)({
+  transports: [new (winston.transports.Console)({colorize: true})]
+});
+app.log.db = function(sql) {
+  var str = "Database - " + sql;
+  if (arguments.length > 1) {
+    var args = Array.isArray(arguments[1]) ?
+      arguments[1] : Array.prototype.slice.call(arguments, 1);
+    str += "; " + JSON.stringify(args);
+  }
+  this.debug(str);
+}
+app.log.setLevels({ silly:0, verbose:1, debug: 2, info:3, warn:4, error:5});
+
 app.configure(function(){
   var config = require('./config');
 
@@ -26,7 +41,13 @@ app.configure(function(){
   app.set('db', config.db);
 
   app.use(express.favicon());
-  app.use(express.logger('dev'));
+  // Send connect logs through to winston (removing duplicate newline)
+  app.use(express.logger({
+    format: 'tiny',
+    stream: { write: function(str){
+      app.log.info(str.substring(0, str.length - 1))
+    }}
+  }));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('pwiefjhsdofhsdlfksd'));
@@ -52,12 +73,14 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
+  app.log.setLevels(winston.config.npm.levels);
   app.use(express.errorHandler());
 });
 
 app.data = function(resource) {
   if (!app.data.cache[resource]) {
-    app.data.cache[resource] = require('./data/' + resource)(app.get('db'));
+    var module = require('./data/' + resource)(app.log, app.get('db'));
+    app.data.cache[resource] = module;
   }
   return app.data.cache[resource];
 }

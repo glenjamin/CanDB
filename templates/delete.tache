@@ -1,0 +1,14 @@
+{{#form}}
+<form action="{{action}}" method="post">
+  <fieldset class="form">
+    <legend class="form-legend">Confirm Deletion</legend>
+    <p>{{prompt}}</p>
+    {{{fields}}}
+    <div class="form-controls">
+      <!-- TODO: smarter back? -->
+      <a href="javascript:history.back(-1)">Cancel</a>
+      <input type="submit" value="Yes">
+    </div>
+  </fieldset>
+</form>
+{{/form}}

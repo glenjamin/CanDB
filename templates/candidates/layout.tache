@@ -1,7 +1,10 @@
-<h2>Candidates</h2>
-
 {{#layout}}
-{{#new-url}}<p><a href="{{new-url}}">New Candidate</a></p>{{/new-url}}
+{{#has-links}}
+<p>
+  {{#list-url}}<a href="{{list-url}}">Back to List</a>{{/list-url}}
+  {{#new-url}}<a href="{{new-url}}">New Candidate</a>{{/new-url}}
+</p>
+{{/has-links}}
 {{/layout}}
 
 {{> content}}
