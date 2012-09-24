@@ -13,7 +13,7 @@ module.exports = function(log, db) {
     var sql = util.format("SELECT * FROM %s ORDER BY %s DESC", table, pk)
     log.db(sql);
     db.all(sql, function(err, rows) {
-      callback(err, rows && rows.map(model.create));
+      callback(err, rows && rows.map(model.load));
     });
   }
   mapper.get = function get(id, callback) {

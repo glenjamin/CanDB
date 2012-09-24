@@ -10,6 +10,6 @@ module.exports = present.extend(Candidate, function(data) {
     'recruiter': c.recruiter,
     'email': c.email,
     'phone': c.phone,
-    'stage': Base.friendlyStage(c)
+    'stage': Candidate.friendlyStage(c)
   };
 })
